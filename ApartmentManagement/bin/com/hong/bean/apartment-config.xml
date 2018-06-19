@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hong.Dao.ApartmentDao">
+<!-- 
+namespace:名称空间;指定为接口的全类名
+id：唯一标识
+resultType：返回值类型
+#{id}：从传递过来的参数中取出id值
+
+ -->
+  <!-- 查询的SQL/开始 -->
+	<select id="findApartmentById" resultType="com.hong.bean.Apartment">
+		select * from apartment where apart_id = #{apart_id}
+	</select>
+	
+	<select id="findApartmentByCode" resultType="com.hong.bean.Apartment">
+		select * from apartment where apart_code = #{apart_code}
+	</select>
+	
+	<select id="findAllApartment" resultType="com.hong.bean.Apartment">
+		select * from apartment
+	</select>
+	
+	<select id="findApartmentByAnything" resultType="com.hong.bean.Apartment">
+		select * from apartment where apart_code like #{anything}
+								   or apart_category like #{anything} 
+								   or apart_build_name like #{anything} 
+								   or apart_now_person like #{anything} 
+								   or apart_max_person like #{anything}
+	</select>
+	<!-- 查询的SQL/结束 -->
+	
+	<!-- 添加的sql/开始 -->
+	<insert id="insertApartment" parameterType="com.hong.bean.Apartment"
+		useGeneratedKeys="true" keyProperty="id" databaseId="mysql">
+		insert into apartment(apart_code, apart_category, apart_build_name, apart_max_person) values(#{apart_code},#{apart_category},#{apart_build_name},#{apart_max_person})
+	</insert>
+	<!-- 添加的sql/结束 -->
+	
+	<!-- 删除的sql/开始 -->
+	<delete id="deleteApartment">
+		delete from apartment where apart_id = #{id}
+	</delete>
+	<!-- 删除的sql/结束 -->
+	
+	<!-- 修改的sql/开始 -->
+	<update id="updateApartment">
+		update apartment set apart_code = #{apart_code},
+							 apart_category= #{apart_category}, 
+							 apart_build_name = #{apart_build_name}, 
+							 apart_now_person = #{apart_now_person}, 
+							 apart_max_person = #{apart_max_person} 
+							 where apart_id = #{apart_id}
+	</update>
+	<update id="updateApartmentByCode">
+		update apartment 
+			set apart_category= #{apart_category}, 
+				apart_build_name = #{apart_build_name}, 
+				apart_max_person = #{apart_max_person} 
+				where apart_id = #{apart_id}
+	</update>
+	<!-- 修改的sql/结束 -->
+	
+</mapper>

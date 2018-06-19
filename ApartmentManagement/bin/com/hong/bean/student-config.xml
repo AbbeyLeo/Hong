@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hong.Dao.StudentDao">
+<!-- 
+namespace:名称空间;指定为接口的全类名
+id：唯一标识
+resultType：返回值类型
+#{id}：从传递过来的参数中取出id值
+
+ -->
+  <!-- 查询的SQL/开始 -->
+	<select id="findStudentById" resultType="com.hong.bean.Student">
+		select * from student where stu_id = #{id}
+	</select>
+	
+	<select id="findAllStudents" resultType="com.hong.bean.Student">
+		select * from student
+	</select>
+	
+	<select id="findStudentByAnything" resultType="com.hong.bean.Student">
+		select * from student where stu_id like #{anything} 
+								or stu_name like #{anything} 
+								or stu_apart_name like #{anything} 
+								or stu_gender like #{anything} 
+								or stu_date like #{anything}
+	</select>
+	
+	<select id="findStudentsByApart" resultType="com.hong.bean.Student">
+		select * from student where stu_apart_name = #{apart}
+	</select>
+	<!-- 查询的SQL/结束 -->
+	
+	<!-- 添加的sql/开始 -->
+	<insert id="insertStudent" parameterType="com.hong.bean.Student"
+		useGeneratedKeys="true" keyProperty="id" databaseId="mysql">
+		insert into student(stu_id,stu_name,stu_apart_name,stu_gender,stu_date) 
+						values(#{stu_id},#{stu_name},#{stu_apart_name},#{stu_gender},#{stu_date})
+	</insert>
+	<!-- 添加的sql/结束 -->
+	
+	<!-- 删除的sql/开始 -->
+	<delete id="deleteStudent">
+		delete from student where stu_id = #{id}
+	</delete>
+	<!-- 删除的sql/结束 -->
+	
+	<!-- 修改的sql/开始 -->
+	<update id="updateStudent">
+		update student set stu_name = #{stu_name}, 
+						stu_apart_name = #{stu_apart_name}, 
+						stu_gender = #{stu_gender}, 
+						stu_date = #{stu_date} 
+						where stu_id = #{stu_id}
+	</update>
+	<!-- 修改的sql/结束 -->
+	
+</mapper>
+
